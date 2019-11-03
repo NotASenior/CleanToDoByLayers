@@ -19,14 +19,18 @@ export class Entity {
 
   public setId(id: number) {
     this.id = id;
+    return this;
   }
   public setActive(active: boolean) {
     this.active = active;
+    return this;
   }
   public setCreatedAt(createdAt: Date) {
     this.createdAt = createdAt;
+    return this;
   }
   public setUpdatedAt(updatedAt: Date) {
     this.updatedAt = updatedAt;
+    return this;
   }
 }

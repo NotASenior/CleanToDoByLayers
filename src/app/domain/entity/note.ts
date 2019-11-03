@@ -11,10 +11,12 @@ export class Note extends Entity {
     return this.content;
   }
 
-  public setTitle(title: string) {
+  public setTitle(title: string): Note {
     this.title = title;
+    return this;
   }
-  public setContent(content: string) {
+  public setContent(content: string): Note {
     this.content = content;
+    return this;
   }
 }
