@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {NoteRepository} from '../../../domain/repository/note-repository';
 import {Note} from '../../../domain/entity/note';
+import {Observable} from 'rxjs';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -60,13 +63,18 @@ export class NoteMockRepository implements NoteRepository {
     }
   }
 
-  get(filter: Note): Note {
-    const filteredNotes: Array<Note> = this.getAll(filter);
-    return filteredNotes.pop();
+  get(filter: Note): Observable<Note> {
+    const filteredNotes: Observable<Array<Note>> = this.getAll(filter);
+    return filteredNotes
+      .pipe(
+        map(notes => {
+          return notes.pop();
+        })
+      );
   }
 
-  getAll(filter: Note): Array<Note> {
-    return this.notes.filter(note => {
+  getAll(filter: Note): Observable<Array<Note>> {
+    const filteredNotes: Array<Note> = this.notes.filter(note => {
       if (filter.getId() > 0 && note.getId() === filter.getId()) {
         return true;
       }
@@ -77,33 +85,38 @@ export class NoteMockRepository implements NoteRepository {
         return true;
       }
     });
+
+    return of<Array<Note>>(filteredNotes);
   }
 
-  getById(id: number): Note {
+  getById(id: number): Observable<Note> {
     return this.get(new Note().setId(id));
   }
 
   update(toUpdate: Note) {
     toUpdate.setUpdatedAt(new Date());
 
-    const currentNote: Note = this.getById(toUpdate.getId());
-    currentNote.setTitle(
-      toUpdate.getTitle() != null && toUpdate.getTitle().length > 0
-      ? toUpdate.getTitle()
-      : currentNote.getTitle());
-    currentNote.setContent(
-      toUpdate.getContent() != null && toUpdate.getContent().length > 0
-        ? toUpdate.getContent()
-        : currentNote.getContent());
+    const currentNoteObservable: Observable<Note> = this.getById(toUpdate.getId());
+    currentNoteObservable
+      .subscribe(note => {
+        note.setTitle(
+          toUpdate.getTitle() != null && toUpdate.getTitle().length > 0
+            ? toUpdate.getTitle()
+            : note.getTitle());
+        note.setContent(
+          toUpdate.getContent() != null && toUpdate.getContent().length > 0
+            ? toUpdate.getContent()
+            : note.getContent());
 
-    let i = 0;
-    for (const note of this.notes) {
-      if (note.getId() === currentNote.getId()) {
-        this.notes[i] = currentNote;
-        break;
-      }
+        let i = 0;
+        for (const currentNote of this.notes) {
+          if (currentNote.getId() === note.getId()) {
+            this.notes[i] = note;
+            break;
+          }
 
-      i++;
-    }
+          i++;
+        }
+      });
   }
 }
