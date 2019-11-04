@@ -1,10 +1,32 @@
-<p *ngIf="!notes">Cargando</p>
-<ul *ngIf="notes">
-  <li *ngFor="let note of notes">
-    <strong>
-      <a href="javascript:;" [routerLink]="'note/' + note.getId()">{{note.getId()}}. {{note.getTitle()}}</a>
-    </strong>
-    <p>{{note.getContent()}}</p>
-    <small>{{note.getUpdatedAt()}}</small>
-  </li>
-</ul>
+<app-navbar
+  [showGoBackButton]="false"></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12 m4"
+      *ngFor="let note of notes">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><strong>{{note.getId()}}. {{note.getTitle()}}</strong></span>
+          <small class="grey-text">
+            {{note.getUpdatedAt().toISOString().substr(0, 10)}}
+            <span>{{note.getUpdatedAt().toISOString().substr(11, 5)}}</span>
+          </small>
+          <br>
+          <br>
+          <p>{{note.getContent()}}</p>
+        </div>
+        <div class="card-action">
+          <a class="indigo-text" href="javascript:" [routerLink]="'/note/' + note.getId()">VER</a>
+          <a class="pink-text text-accent-2 right" href="javascript:">ELIMINAR</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large pink accent-2">
+    <i class="large material-icons">add</i>
+  </a>
+</div>

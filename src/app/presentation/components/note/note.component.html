@@ -1,3 +1,28 @@
-<strong>{{note.getId()}}. {{note.getTitle()}}</strong>
-<p>{{note.getContent()}}</p>
-<small>{{note.getUpdatedAt()}}</small>
+<app-navbar
+  [showGoBackButton]="true"></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><strong>{{note.getId()}}. {{note.getTitle()}}</strong></span>
+          <small class="grey-text">
+            {{note.getUpdatedAt().toISOString().substr(0, 10)}}
+            <span>{{note.getUpdatedAt().toISOString().substr(11, 5)}}</span>
+          </small>
+          <br>
+          <br>
+          <p>{{note.getContent()}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large pink accent-2">
+    <i class="large material-icons">mode_edit</i>
+  </a>
+</div>
+

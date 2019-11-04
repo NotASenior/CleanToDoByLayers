@@ -5,6 +5,8 @@ import {NotesPresenter} from '../../presenter/notes-presenter';
 import {Observable} from 'rxjs';
 import {NotesPresenterImpl} from './notes.presenter';
 
+declare var M;
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -21,6 +23,14 @@ export class NotesComponent implements NotesView, OnInit {
 
   ngOnInit() {
     this.presenter.getNotes(new NoteModel());
+    this.initMaterializeElements();
+  }
+
+  private initMaterializeElements() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const fab = document.querySelectorAll('.fixed-action-btn');
+      M.FloatingActionButton.init(fab, {});
+    });
   }
 
   setNotes(notesObservable: Observable<NoteModel[]>) {
