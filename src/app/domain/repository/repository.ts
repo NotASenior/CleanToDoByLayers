@@ -6,5 +6,5 @@ export interface Repository<I> {
   getAll(filter: I): Observable<Array<I>>;
   getById(id: number): Observable<I>;
   update(toUpdate: I);
-  delete(toDelete: I);
+  delete(toDelete: I): Observable<boolean>;
 }

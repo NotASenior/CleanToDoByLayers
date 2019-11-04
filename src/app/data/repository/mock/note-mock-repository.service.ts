@@ -50,17 +50,12 @@ export class NoteMockRepository implements NoteRepository {
     this.notes.push(toCreate);
   }
 
-  delete(toDelete: Note) {
-    let i = 0;
+  delete(toDelete: Note): Observable<any> {
+    this.notes = this.notes.filter(note =>  {
+      return note.getId() !== toDelete.getId();
+    });
 
-    for (const note of this.notes) {
-      if (note.getId() === toDelete.getId()) {
-        this.notes.slice(i);
-        break;
-      }
-
-      i++;
-    }
+    return of<boolean>(true);
   }
 
   get(filter: Note): Observable<Note> {

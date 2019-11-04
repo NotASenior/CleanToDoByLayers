@@ -39,4 +39,16 @@ export class NotesComponent implements NotesView, OnInit {
         this.notes = notes;
       });
   }
+
+  delete(note: NoteModel) {
+    if (confirm('Desea eliminar la nota?')) {
+      this.presenter.deleteNote(note);
+    }
+  }
+
+  onNoteDelete(responseObservable: Observable<any>) {
+    responseObservable.subscribe(response => {
+      this.presenter.getNotes(new NoteModel());
+    });
+  }
 }

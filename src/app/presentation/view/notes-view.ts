@@ -3,4 +3,5 @@ import {Observable} from 'rxjs';
 
 export interface NotesView {
   setNotes(notesObservable: Observable<NoteModel[]>);
+  onNoteDelete(responseObservable: Observable<any>);
 }
