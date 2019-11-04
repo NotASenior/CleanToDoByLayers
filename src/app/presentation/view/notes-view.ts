@@ -1,5 +1,6 @@
 import {NoteModel} from '../model/note-model';
+import {Observable} from 'rxjs';
 
 export interface NotesView {
-  setNotes(notes: Array<NoteModel>);
+  setNotes(notesObservable: Observable<NoteModel[]>);
 }

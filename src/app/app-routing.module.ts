@@ -4,6 +4,9 @@ import {NotesComponent} from './presentation/components/notes/notes.component';
 import {NoteComponent} from './presentation/components/note/note.component';
 
 const routes: Routes = [{
+  path: '',
+  component: NotesComponent
+}, {
   path: 'notes',
   component: NotesComponent
 }, {

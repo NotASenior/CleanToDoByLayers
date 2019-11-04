@@ -1,1 +1,10 @@
-<p>notes works!</p>
+<p *ngIf="!notes">Cargando</p>
+<ul *ngIf="notes">
+  <li *ngFor="let note of notes">
+    <strong>
+      <a href="javascript:;" [routerLink]="'note/' + note.getId()">{{note.getId()}}. {{note.getTitle()}}</a>
+    </strong>
+    <p>{{note.getContent()}}</p>
+    <small>{{note.getUpdatedAt()}}</small>
+  </li>
+</ul>

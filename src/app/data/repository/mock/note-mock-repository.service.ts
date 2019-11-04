@@ -74,6 +74,12 @@ export class NoteMockRepository implements NoteRepository {
   }
 
   getAll(filter: Note): Observable<Array<Note>> {
+    if ((filter.getId() == null || filter.getId() === undefined || filter.getId() === 0)
+      && (filter.getTitle() == null || filter.getTitle() === undefined || filter.getTitle().length === 0)
+      && (filter.getTitle() == null || filter.getTitle() === undefined || filter.getTitle().length === 0)) {
+      return of<Array<Note>>(this.notes);
+    }
+
     const filteredNotes: Array<Note> = this.notes.filter(note => {
       if (filter.getId() > 0 && note.getId() === filter.getId()) {
         return true;

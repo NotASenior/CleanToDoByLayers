@@ -3,7 +3,7 @@ import {Note} from '../../domain/entity/note';
 import {NoteModel} from '../model/note-model';
 
 export class NoteMapper implements Mapper<Note, NoteModel> {
-  mapFrom(input: Note): NoteModel {
+  mapEntityToModel(input: Note): NoteModel {
     return new NoteModel()
       .setId(input.getId())
       .setTitle(input.getTitle())
@@ -12,7 +12,7 @@ export class NoteMapper implements Mapper<Note, NoteModel> {
       .setUpdatedAt(input.getUpdatedAt());
   }
 
-  mapTo(input: NoteModel): Note {
+  mapModelToEntity(input: NoteModel): Note {
     return new Note()
       .setId(input.getId())
       .setTitle(input.getTitle())
@@ -21,15 +21,15 @@ export class NoteMapper implements Mapper<Note, NoteModel> {
       .setUpdatedAt(input.getUpdatedAt());
   }
 
-  mapListFrom(input: Array<Note>): Array<NoteModel> {
+  mapEntitiesToModels(input: Array<Note>): Array<NoteModel> {
     return input.map(note => {
-      return this.mapFrom(note);
+      return this.mapEntityToModel(note);
     });
   }
 
-  mapListTo(input: Array<NoteModel>): Array<Note> {
+  mapModelsToEntities(input: Array<NoteModel>): Array<Note> {
     return input.map(note => {
-      return this.mapTo(note);
+      return this.mapModelToEntity(note);
     });
   }
 }
