@@ -1,0 +1,12 @@
+<div [id]="id" class="modal">
+  <div class="modal-content">
+    <h4>{{title}}</h4>
+    <div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:" class="modal-close waves-effect waves-green btn-flat" (click)="onYesClick()">Sí</a>
+    <a href="javascript:" class="modal-close waves-effect waves-green btn-flat" (click)="onNoClick()">No</a>
+  </div>
+</div>

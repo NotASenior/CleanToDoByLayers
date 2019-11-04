@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotesView} from '../../view/notes-view';
 import {NoteModel} from '../../model/note-model';
 import {NotesPresenter} from '../../presenter/notes-presenter';
@@ -15,6 +15,7 @@ declare var M;
 export class NotesComponent implements NotesView, OnInit {
   private notes: Array<NoteModel>;
   private presenter: NotesPresenter;
+  private noteToDelete: NoteModel;
 
   constructor() {
     this.notes = new Array<NoteModel>();
@@ -27,10 +28,8 @@ export class NotesComponent implements NotesView, OnInit {
   }
 
   private initMaterializeElements() {
-    document.addEventListener('DOMContentLoaded', () => {
-      const fab = document.querySelectorAll('.fixed-action-btn');
-      M.FloatingActionButton.init(fab, {});
-    });
+    const fab = document.querySelectorAll('.fixed-action-btn');
+    M.FloatingActionButton.init(fab, {});
   }
 
   setNotes(notesObservable: Observable<NoteModel[]>) {
@@ -41,14 +40,16 @@ export class NotesComponent implements NotesView, OnInit {
   }
 
   delete(note: NoteModel) {
-    if (confirm('Desea eliminar la nota?')) {
-      this.presenter.deleteNote(note);
-    }
+    this.presenter.deleteNote(note);
   }
 
   onNoteDelete(responseObservable: Observable<any>) {
     responseObservable.subscribe(response => {
       this.presenter.getNotes(new NoteModel());
     });
+  }
+
+  setNoteToDelete(note: NoteModel) {
+    this.noteToDelete = note;
   }
 }

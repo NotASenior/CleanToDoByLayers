@@ -8,13 +8,15 @@ import { NoteComponent } from './presentation/components/note/note.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './presentation/components/common/navbar/navbar.component';
+import { ModalContainerComponent } from './presentation/components/common/modal-container/modal-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
     NoteComponent,
-    NavbarComponent
+    NavbarComponent,
+    ModalContainerComponent,
   ],
   imports: [
     BrowserModule,
