@@ -1,13 +1,13 @@
-import {Usecase} from './usecase';
+import {Usecase} from '../usecase';
 import {GetNotesRequest} from './get-notes-request';
 import {GetNotesResponse} from './get-notes-response';
-import {NoteRepository} from '../repository/note-repository';
-import {Mapper} from '../mapper/mapper';
-import {Note} from '../entity/note';
-import {NoteModel} from '../../presentation/model/note-model';
+import {NoteRepository} from '../../repository/note-repository';
+import {Mapper} from '../../mapper/mapper';
+import {Note} from '../../entity/note';
+import {NoteModel} from '../../../presentation/model/note-model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Dependencies} from '../../dependency/dependency.factory';
+import {Dependencies} from '../../../dependency/dependency.factory';
 
 export class GetNotesInteractor implements Usecase<GetNotesRequest, GetNotesResponse> {
   private noteMapper: Mapper<Note, NoteModel> = Dependencies.noteMapper;

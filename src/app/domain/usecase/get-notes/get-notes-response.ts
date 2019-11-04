@@ -1,4 +1,4 @@
-import {NoteModel} from '../../presentation/model/note-model';
+import {NoteModel} from '../../../presentation/model/note-model';
 import {Observable} from 'rxjs';
 
 export class GetNotesResponse {

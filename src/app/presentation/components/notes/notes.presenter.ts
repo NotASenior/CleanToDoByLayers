@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {NotesPresenter} from '../../presenter/notes-presenter';
 import {Usecase} from '../../../domain/usecase/usecase';
-import {GetNotesRequest} from '../../../domain/usecase/get-notes-request';
-import {GetNotesResponse} from '../../../domain/usecase/get-notes-response';
+import {GetNotesRequest} from '../../../domain/usecase/get-notes/get-notes-request';
+import {GetNotesResponse} from '../../../domain/usecase/get-notes/get-notes-response';
 import {NotesView} from '../../view/notes-view';
 import {NoteModel} from '../../model/note-model';
 import {InteractorDependencies} from '../../../dependency/interactor.factory';
