@@ -7,11 +7,11 @@ import {Note} from '../../entity/note';
 import {NoteModel} from '../../../presentation/model/note-model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Dependencies} from '../../../dependency/dependency.factory';
+import {environment} from '../../../../environments/environment';
 
 export class GetNotesInteractor implements Usecase<GetNotesRequest, GetNotesResponse> {
-  private noteMapper: Mapper<Note, NoteModel> = Dependencies.noteMapper;
-  private noteRepository: NoteRepository = Dependencies.noteRepository;
+  private noteMapper: Mapper<Note, NoteModel> = environment.noteMapper;
+  private noteRepository: NoteRepository = environment.noteRepository;
 
   execute(request: GetNotesRequest): GetNotesResponse {
     const filter: Note = this.noteMapper.mapModelToEntity(request.getFilter());

@@ -1,4 +1,4 @@
-export class GetNoteRequest {
+export class DeleteNoteRequest {
   private readonly id: number;
 
   public constructor(id: number) {

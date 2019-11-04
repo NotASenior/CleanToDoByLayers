@@ -4,14 +4,14 @@ import {GetNoteResponse} from './get-note-response';
 import {Mapper} from '../../mapper/mapper';
 import {Note} from '../../entity/note';
 import {NoteModel} from '../../../presentation/model/note-model';
-import {Dependencies} from '../../../dependency/dependency.factory';
 import {NoteRepository} from '../../repository/note-repository';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {environment} from '../../../../environments/environment';
 
 export class GetNoteInteractor implements Usecase<GetNoteRequest, GetNoteResponse> {
-  private noteMapper: Mapper<Note, NoteModel> = Dependencies.noteMapper;
-  private noteRepository: NoteRepository = Dependencies.noteRepository;
+  private noteMapper: Mapper<Note, NoteModel> = environment.noteMapper;
+  private noteRepository: NoteRepository = environment.noteRepository;
 
   execute(request: GetNoteRequest): GetNoteResponse {
     const id: number = request.getId();

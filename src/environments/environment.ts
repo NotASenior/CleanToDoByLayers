@@ -2,9 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {NoteMapper} from '../app/presentation/mapper/note-mapper';
+import {NoteMockRepository} from '../app/data/repository/mock/note-mock-repository.service';
+import {NoteValidator} from '../app/presentation/validator/note-validator';
+
 export const environment = {
   production: false,
   name: 'Dev',
+  noteMapper: new NoteMapper(),
+  noteValidator: new NoteValidator(),
+  noteRepository: new NoteMockRepository(),
 };
 
 /*
