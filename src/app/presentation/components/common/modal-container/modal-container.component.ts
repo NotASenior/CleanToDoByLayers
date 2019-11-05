@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MaterializeHelper} from '../../../materialize-helper';
 
 declare var M;
 
@@ -16,16 +17,11 @@ export class ModalContainerComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    this.initMaterializeElements();
+    MaterializeHelper.initModal();
   }
 
   ngAfterViewInit(): void {
-    this.initMaterializeElements();
-  }
-
-  private initMaterializeElements() {
-    const modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals, {});
+    MaterializeHelper.initModal();
   }
 
   onYesClick() {
