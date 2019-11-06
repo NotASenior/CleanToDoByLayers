@@ -42,12 +42,14 @@ export class NoteMockRepository implements NoteRepository {
     );
   }
 
-  create(toCreate: Note) {
+  create(toCreate: Note): Observable<any> {
+    toCreate.setId(this.notes.length + 1);
     toCreate.setActive(true);
     toCreate.setCreatedAt(new Date());
-    toCreate.setUpdatedAt(null);
+    toCreate.setUpdatedAt(new Date());
 
     this.notes.push(toCreate);
+    return of<boolean>(true);
   }
 
   delete(toDelete: Note): Observable<any> {
@@ -94,7 +96,7 @@ export class NoteMockRepository implements NoteRepository {
     return this.get(new Note().setId(id));
   }
 
-  update(toUpdate: Note) {
+  update(toUpdate: Note): Observable<any> {
     toUpdate.setUpdatedAt(new Date());
 
     const currentNoteObservable: Observable<Note> = this.getById(toUpdate.getId());
@@ -119,5 +121,7 @@ export class NoteMockRepository implements NoteRepository {
           i++;
         }
       });
+
+    return of<boolean>(true);
   }
 }

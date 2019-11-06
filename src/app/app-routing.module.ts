@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {NotesComponent} from './presentation/components/notes/notes.component';
 import {NoteComponent} from './presentation/components/note/note.component';
+import {NoteFormComponent} from './presentation/components/note-form/note-form.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,6 +13,9 @@ const routes: Routes = [{
 }, {
   path: 'note/:id',
   component: NoteComponent
+}, {
+  path: 'note-form',
+  component: NoteFormComponent
 }];
 
 @NgModule({
