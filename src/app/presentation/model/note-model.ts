@@ -1,9 +1,9 @@
 export class NoteModel {
-  private id: number;
-  private title: string;
-  private content: string;
-  private createdAt: Date;
-  private updatedAt: Date;
+  public id: number;
+  public title: string;
+  public content: string;
+  public createdAt: Date;
+  public updatedAt: Date;
 
   public getId(): number {
     return this.id;

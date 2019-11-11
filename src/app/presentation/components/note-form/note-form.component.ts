@@ -5,7 +5,7 @@ import {NoteFormPresenter} from '../../presenter/note-form-presenter';
 import {NoteFormPresenterImpl} from './note-form.presenter';
 import {Observable} from 'rxjs';
 import {MaterializeHelper} from '../../materialize-helper';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-note-form',
@@ -13,17 +13,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./note-form.component.css']
 })
 export class NoteFormComponent implements NoteFormView, OnInit {
-  private note: {
-    title: string,
-    content: string
-  };
+  private note: NoteModel;
   private presenter: NoteFormPresenter;
 
-  constructor(private router: Router) {
-    this.note = {
-      title: 'Nota nueva',
-      content: ''
-    };
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
     this.presenter = new NoteFormPresenterImpl(this);
   }
 
@@ -32,14 +26,30 @@ export class NoteFormComponent implements NoteFormView, OnInit {
     setTimeout(() => {
       MaterializeHelper.initPrefilledInputs();
     }, 100);
+    this.setNoteOrDefault();
+  }
+
+  private setNoteOrDefault() {
+    const id: number = Number(this.route.snapshot.paramMap.get('id'));
+    if (id === 0) {
+      this.note = new NoteModel()
+        .setId(0)
+        .setTitle('Nota nueva')
+        .setContent('');
+    } else {
+      this.presenter.getNote(id);
+    }
+  }
+
+  setNote(noteObservable: Observable<NoteModel>) {
+    noteObservable
+      .subscribe(note => {
+        this.note = note;
+      });
   }
 
   save() {
-    this.presenter.save(new NoteModel()
-      .setId(0)
-      .setTitle(this.note.title)
-      .setContent(this.note.content)
-    );
+    this.presenter.save(this.note);
   }
 
   onSaveResponse(response: Observable<any>) {

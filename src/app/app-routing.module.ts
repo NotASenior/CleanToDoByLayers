@@ -16,6 +16,9 @@ const routes: Routes = [{
 }, {
   path: 'note-form',
   component: NoteFormComponent
+}, {
+  path: 'note-form/:id',
+  component: NoteFormComponent
 }];
 
 @NgModule({

@@ -12,6 +12,10 @@ import {Note} from '../../../domain/entity/note';
 import {ValidationResponse} from '../../../domain/validator/validation-response';
 import {Mapper} from '../../../domain/mapper/mapper';
 import {of} from 'rxjs';
+import {GetNoteRequest} from '../../../domain/usecase/get-note/get-note-request';
+import {GetNoteResponse} from '../../../domain/usecase/get-note/get-note-response';
+import {EditNoteRequest} from '../../../domain/usecase/edit-note/edit-note-request';
+import {EditNoteResponse} from '../../../domain/usecase/edit-note/edit-note-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +25,18 @@ export class NoteFormPresenterImpl implements NoteFormPresenter {
   private noteMapper: Mapper<Note, NoteModel> = environment.noteMapper;
   private noteValidator: Validator<Note> = environment.noteValidator;
   private addNoteInteractor: Usecase<AddNoteRequest, AddNoteResponse> = InteractorDependencies.addNoteInteractor;
+  private editNoteInteractor: Usecase<EditNoteRequest, EditNoteResponse> = InteractorDependencies.editNoteInteractor;
+  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getNoteInteractor;
 
   constructor(view: NoteFormView) {
     this.view = view;
+  }
+
+  getNote(id: number) {
+    const request = new GetNoteRequest(id);
+    const response: GetNoteResponse = this.getNoteInteractor.execute(request);
+
+    this.view.setNote(response.getNote());
   }
 
   save(note: NoteModel) {
@@ -36,8 +49,14 @@ export class NoteFormPresenterImpl implements NoteFormPresenter {
       return;
     }
 
-    const request = new AddNoteRequest(note);
-    const response: AddNoteResponse = this.addNoteInteractor.execute(request);
+    let response;
+    if (note.getId() === 0) {
+      const request = new AddNoteRequest(note);
+      response = this.addNoteInteractor.execute(request);
+    } else {
+      const request = new EditNoteRequest(note);
+      response = this.editNoteInteractor.execute(request);
+    }
 
     this.view.onSaveResponse(response.getResponse());
   }

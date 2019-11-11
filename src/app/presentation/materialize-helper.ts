@@ -15,4 +15,8 @@ export class MaterializeHelper {
   static initPrefilledInputs() {
     M.updateTextFields();
   }
+  static initFeatureDiscovery() {
+    const tapTargets = document.querySelectorAll('.tap-target');
+    M.TapTarget.init(tapTargets, {});
+  }
 }

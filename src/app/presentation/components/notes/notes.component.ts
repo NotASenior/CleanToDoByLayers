@@ -6,8 +6,6 @@ import {Observable} from 'rxjs';
 import {NotesPresenterImpl} from './notes.presenter';
 import {MaterializeHelper} from '../../materialize-helper';
 
-declare var M;
-
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -26,6 +24,7 @@ export class NotesComponent implements NotesView, OnInit {
   ngOnInit() {
     this.presenter.getNotes(new NoteModel());
     MaterializeHelper.initFab();
+    MaterializeHelper.initFeatureDiscovery();
   }
 
   setNotes(notesObservable: Observable<NoteModel[]>) {
@@ -40,7 +39,7 @@ export class NotesComponent implements NotesView, OnInit {
   }
 
   onNoteDelete(responseObservable: Observable<any>) {
-    responseObservable.subscribe(response => {
+    responseObservable.subscribe( response => {
       this.presenter.getNotes(new NoteModel());
     });
   }
