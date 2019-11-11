@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {NotesPresenter} from '../../presenter/notes-presenter';
 import {Usecase} from '../../../domain/usecase/usecase';
 import {GetNotesRequest} from '../../../domain/usecase/get-notes/get-notes-request';
@@ -9,9 +8,6 @@ import {InteractorDependencies} from '../../../dependency/interactor.factory';
 import {DeleteNoteRequest} from '../../../domain/usecase/delete-note/delete-note-request';
 import {DeleteNoteResponse} from '../../../domain/usecase/delete-note/delete-note-response';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class NotesPresenterImpl implements NotesPresenter {
   private view: NotesView;
   private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorDependencies.getNotesInteractor;

@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {Usecase} from '../../../domain/usecase/usecase';
 import {NoteModel} from '../../model/note-model';
 import {InteractorDependencies} from '../../../dependency/interactor.factory';
@@ -17,9 +16,6 @@ import {GetNoteResponse} from '../../../domain/usecase/get-note/get-note-respons
 import {EditNoteRequest} from '../../../domain/usecase/edit-note/edit-note-request';
 import {EditNoteResponse} from '../../../domain/usecase/edit-note/edit-note-response';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class NoteFormPresenterImpl implements NoteFormPresenter {
   private view: NoteFormView;
   private noteMapper: Mapper<Note, NoteModel> = environment.noteMapper;
