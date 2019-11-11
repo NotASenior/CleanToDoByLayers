@@ -12,9 +12,9 @@ import {MaterializeHelper} from '../../materialize-helper';
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements NotesView, OnInit {
-  private notes: Array<NoteModel>;
+  public notes: Array<NoteModel>;
+  public noteToDelete: NoteModel;
   private presenter: NotesPresenter;
-  private noteToDelete: NoteModel;
 
   constructor() {
     this.notes = new Array<NoteModel>();

@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./note-form.component.css']
 })
 export class NoteFormComponent implements NoteFormView, OnInit {
-  private note: NoteModel;
+  public note: NoteModel;
   private presenter: NoteFormPresenter;
 
   constructor(private router: Router,

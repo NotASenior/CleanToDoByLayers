@@ -12,7 +12,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements NoteView, OnInit {
-  private note: NoteModel;
+  public note: NoteModel;
   private presenter: NotePresenter;
 
   constructor(private route: ActivatedRoute) {
