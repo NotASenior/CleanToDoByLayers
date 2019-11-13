@@ -2,11 +2,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.container {
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
 .white-text {
   color: white !important;
 }

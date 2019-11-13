@@ -7,9 +7,15 @@ import {NoteModel} from '../../model/note-model';
 import {InteractorDependencies} from '../../../dependency/interactor.factory';
 import {DeleteNoteRequest} from '../../../domain/usecase/delete-note/delete-note-request';
 import {DeleteNoteResponse} from '../../../domain/usecase/delete-note/delete-note-response';
+import {environment} from '../../../../environments/environment';
+import {Note} from '../../../domain/entity/note';
+import {Mapper} from '../../mapper/mapper';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class NotesPresenterImpl implements NotesPresenter {
   private view: NotesView;
+  private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
   private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorDependencies.getNotesInteractor;
   private deleteNoteInteractor: Usecase<DeleteNoteRequest, DeleteNoteResponse> = InteractorDependencies.deleteNoteInteractor;
 
@@ -18,10 +24,18 @@ export class NotesPresenterImpl implements NotesPresenter {
   }
 
   getNotes(filter: NoteModel) {
-    const request = new GetNotesRequest(filter);
+    const mappedFilter: Note = this.mapper.mapModelToEntity(filter);
+    const request = new GetNotesRequest(mappedFilter);
     const response: GetNotesResponse = this.getNotesInteractor.execute(request);
 
-    this.view.setNotes(response.getNotes());
+    const notesObservable: Observable<NoteModel[]> = response.getNotes()
+      .pipe(
+        map<Note[], NoteModel[]>((notes: Note[]) => {
+          return this.mapper.mapEntitiesToModels(notes);
+        })
+      );
+
+    this.view.setNotes(notesObservable);
   }
 
   deleteNote(note: NoteModel) {

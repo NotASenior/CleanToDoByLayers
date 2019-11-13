@@ -17,9 +17,13 @@
           <p>{{note.getContent()}}</p>
         </div>
         <div class="card-action">
-          <a class="indigo-text" href="javascript:" [routerLink]="'/note/' + note.getId()">VER</a>
+          <a class="indigo-text" href="javascript:" [routerLink]="'/note/' + note.getId()">
+            <i class="material-icons">open_in_new</i>
+          </a>
           <a data-target="delete-modal" class="pink-text text-accent-2 right modal-trigger" href="javascript:"
-            (click)="setNoteToDelete(note)">ELIMINAR</a>
+            (click)="setNoteToDelete(note)">
+            <i class="material-icons">delete</i>
+          </a>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import {Mapper} from '../../domain/mapper/mapper';
+import {Mapper} from './mapper';
 import {Note} from '../../domain/entity/note';
 import {NoteModel} from '../model/note-model';
 

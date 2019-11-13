@@ -1,13 +1,13 @@
-import {NoteModel} from '../../../presentation/model/note-model';
+import {Note} from '../../entity/note';
 
 export class AddNoteRequest {
-  private readonly note: NoteModel;
+  private readonly note: Note;
 
-  public constructor(note: NoteModel) {
+  public constructor(note: Note) {
     this.note = note;
   }
 
-  public getNote(): NoteModel {
+  public getNote(): Note {
     return this.note;
   }
 }
