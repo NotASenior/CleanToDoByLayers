@@ -21,9 +21,9 @@ export class NoteFormPresenterImpl implements NoteFormPresenter {
   private view: NoteFormView;
   private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
   private noteValidator: Validator<Note> = environment.noteValidator;
-  private addNoteInteractor: Usecase<AddNoteRequest, AddNoteResponse> = InteractorDependencies.addNoteInteractor;
-  private editNoteInteractor: Usecase<EditNoteRequest, EditNoteResponse> = InteractorDependencies.editNoteInteractor;
-  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getNoteInteractor;
+  private addNoteInteractor: Usecase<AddNoteRequest, AddNoteResponse> = InteractorDependencies.getAddNoteInteractor();
+  private editNoteInteractor: Usecase<EditNoteRequest, EditNoteResponse> = InteractorDependencies.getEditNoteInteractor();
+  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getGetNoteInteractor();
 
   constructor(view: NoteFormView) {
     this.view = view;

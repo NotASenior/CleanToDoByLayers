@@ -14,7 +14,7 @@ import {environment} from '../../../../environments/environment';
 export class NotePresenterImpl implements NotePresenter {
   private view: NoteView;
   private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
-  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getNoteInteractor;
+  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getGetNoteInteractor();
 
   constructor(view: NoteView) {
     this.view = view;

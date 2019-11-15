@@ -16,8 +16,8 @@ import {map} from 'rxjs/operators';
 export class NotesPresenterImpl implements NotesPresenter {
   private view: NotesView;
   private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
-  private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorDependencies.getNotesInteractor;
-  private deleteNoteInteractor: Usecase<DeleteNoteRequest, DeleteNoteResponse> = InteractorDependencies.deleteNoteInteractor;
+  private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorDependencies.getGetNotesInteractor();
+  private deleteNoteInteractor: Usecase<DeleteNoteRequest, DeleteNoteResponse> = InteractorDependencies.getDeleteNoteInteractor();
 
   constructor(view: NotesView) {
     this.view = view;
