@@ -4,7 +4,7 @@ import {GetNoteInteractor} from '../domain/usecase/get-note/get-note-interactor'
 import {GetNotesInteractor} from '../domain/usecase/get-notes/get-notes-interactor';
 import {DeleteNoteInteractor} from '../domain/usecase/delete-note/delete-note-interactor';
 
-export class InteractorDependencies {
+export class InteractorFactory {
   private static addNoteInteractor: AddNoteInteractor;
   private static getNoteInteractor: GetNoteInteractor;
   private static getNotesInteractor: GetNotesInteractor;

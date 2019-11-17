@@ -1,6 +1,6 @@
 import {Usecase} from '../../../domain/usecase/usecase';
 import {NoteModel} from '../../model/note-model';
-import {InteractorDependencies} from '../../../dependency/interactor.factory';
+import {InteractorFactory} from '../../../dependency/interactor.factory';
 import {NoteFormView} from '../../view/note-form-view';
 import {NoteFormPresenter} from '../../presenter/note-form-presenter';
 import {AddNoteRequest} from '../../../domain/usecase/add-note/add-note-request';
@@ -16,14 +16,15 @@ import {GetNoteResponse} from '../../../domain/usecase/get-note/get-note-respons
 import {EditNoteRequest} from '../../../domain/usecase/edit-note/edit-note-request';
 import {EditNoteResponse} from '../../../domain/usecase/edit-note/edit-note-response';
 import {map} from 'rxjs/operators';
+import {MapperFactory} from '../../../dependency/mapper.factory';
 
 export class NoteFormPresenterImpl implements NoteFormPresenter {
   private view: NoteFormView;
-  private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
+  private mapper: Mapper<Note, NoteModel> = MapperFactory.getNoteMapper();
   private noteValidator: Validator<Note> = environment.noteValidator;
-  private addNoteInteractor: Usecase<AddNoteRequest, AddNoteResponse> = InteractorDependencies.getAddNoteInteractor();
-  private editNoteInteractor: Usecase<EditNoteRequest, EditNoteResponse> = InteractorDependencies.getEditNoteInteractor();
-  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getGetNoteInteractor();
+  private addNoteInteractor: Usecase<AddNoteRequest, AddNoteResponse> = InteractorFactory.getAddNoteInteractor();
+  private editNoteInteractor: Usecase<EditNoteRequest, EditNoteResponse> = InteractorFactory.getEditNoteInteractor();
+  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorFactory.getGetNoteInteractor();
 
   constructor(view: NoteFormView) {
     this.view = view;
@@ -36,6 +37,10 @@ export class NoteFormPresenterImpl implements NoteFormPresenter {
     const noteObservable: Observable<NoteModel> = response.getNote()
       .pipe(
         map((note: Note) => {
+          if (!note) {
+            return null;
+          }
+
           return this.mapper.mapEntityToModel(note);
         })
       );

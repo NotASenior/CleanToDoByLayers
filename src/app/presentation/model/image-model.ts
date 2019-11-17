@@ -1,18 +1,14 @@
-import {ImageModel} from './image-model';
-
-export class NoteModel {
+export class ImageModel {
   public id: number;
   public title: string;
   public content: string;
   public createdAt: Date;
   public updatedAt: Date;
-  public images: ImageModel[];
 
   public constructor() {
     this.setId(0);
     this.setTitle('');
     this.setContent('');
-    this.setImages(new Array<ImageModel>());
     this.setCreatedAt(new Date());
     this.setUpdatedAt(new Date());
   }
@@ -26,9 +22,6 @@ export class NoteModel {
   public getContent(): string {
     return this.content;
   }
-  public getImages() {
-    return this.images;
-  }
   public getCreatedAt(): Date {
     return this.createdAt;
   }
@@ -40,16 +33,12 @@ export class NoteModel {
     this.id = id;
     return this;
   }
-  public setTitle(title: string): NoteModel {
+  public setTitle(title: string): ImageModel {
     this.title = title;
     return this;
   }
-  public setContent(content: string): NoteModel {
+  public setContent(content: string): ImageModel {
     this.content = content;
-    return this;
-  }
-  public setImages(images: ImageModel[]) {
-    this.images = images;
     return this;
   }
   public setCreatedAt(createdAt: Date) {
@@ -59,29 +48,5 @@ export class NoteModel {
   public setUpdatedAt(updatedAt: Date) {
     this.updatedAt = updatedAt;
     return this;
-  }
-
-  public addImage(image: ImageModel) {
-    image.setId(this.images.length);
-    image.setCreatedAt(new Date());
-    image.setUpdatedAt(new Date());
-
-    this.images.push(image);
-  }
-
-  public getImage(id: number) {
-    for (const image of this.images) {
-      if (image.getId() === id) {
-        return image;
-      }
-    }
-
-    return null;
-  }
-
-  public removeImage(imageToRemove: ImageModel) {
-    this.images = this.images.filter(image => {
-      return image.getId() !== imageToRemove.getId();
-    });
   }
 }

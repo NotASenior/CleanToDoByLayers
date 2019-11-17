@@ -4,20 +4,20 @@ import {GetNotesRequest} from '../../../domain/usecase/get-notes/get-notes-reque
 import {GetNotesResponse} from '../../../domain/usecase/get-notes/get-notes-response';
 import {NotesView} from '../../view/notes-view';
 import {NoteModel} from '../../model/note-model';
-import {InteractorDependencies} from '../../../dependency/interactor.factory';
+import {InteractorFactory} from '../../../dependency/interactor.factory';
 import {DeleteNoteRequest} from '../../../domain/usecase/delete-note/delete-note-request';
 import {DeleteNoteResponse} from '../../../domain/usecase/delete-note/delete-note-response';
-import {environment} from '../../../../environments/environment';
 import {Note} from '../../../domain/entity/note';
 import {Mapper} from '../../mapper/mapper';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {MapperFactory} from '../../../dependency/mapper.factory';
 
 export class NotesPresenterImpl implements NotesPresenter {
   private view: NotesView;
-  private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
-  private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorDependencies.getGetNotesInteractor();
-  private deleteNoteInteractor: Usecase<DeleteNoteRequest, DeleteNoteResponse> = InteractorDependencies.getDeleteNoteInteractor();
+  private mapper: Mapper<Note, NoteModel> = MapperFactory.getNoteMapper();
+  private getNotesInteractor: Usecase<GetNotesRequest, GetNotesResponse> = InteractorFactory.getGetNotesInteractor();
+  private deleteNoteInteractor: Usecase<DeleteNoteRequest, DeleteNoteResponse> = InteractorFactory.getDeleteNoteInteractor();
 
   constructor(view: NotesView) {
     this.view = view;
@@ -31,6 +31,10 @@ export class NotesPresenterImpl implements NotesPresenter {
     const notesObservable: Observable<NoteModel[]> = response.getNotes()
       .pipe(
         map<Note[], NoteModel[]>((notes: Note[]) => {
+          if (!notes) {
+            return null;
+          }
+
           return this.mapper.mapEntitiesToModels(notes);
         })
       );

@@ -4,6 +4,13 @@ export class Entity {
   private createdAt: Date;
   private updatedAt: Date;
 
+  public constructor() {
+    this.setId(0);
+    this.setActive(true);
+    this.setCreatedAt(new Date());
+    this.setUpdatedAt(new Date());
+  }
+
   public getId(): number {
     return this.id;
   }

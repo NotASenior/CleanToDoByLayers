@@ -1,5 +1,5 @@
 import {Usecase} from '../../../domain/usecase/usecase';
-import {InteractorDependencies} from '../../../dependency/interactor.factory';
+import {InteractorFactory} from '../../../dependency/interactor.factory';
 import {NotePresenter} from '../../presenter/note-presenter';
 import {NoteView} from '../../view/note-view';
 import {GetNoteRequest} from '../../../domain/usecase/get-note/get-note-request';
@@ -9,12 +9,12 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {NoteModel} from '../../model/note-model';
 import {Mapper} from '../../mapper/mapper';
-import {environment} from '../../../../environments/environment';
+import {MapperFactory} from '../../../dependency/mapper.factory';
 
 export class NotePresenterImpl implements NotePresenter {
   private view: NoteView;
-  private mapper: Mapper<Note, NoteModel> = environment.noteMapper;
-  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorDependencies.getGetNoteInteractor();
+  private mapper: Mapper<Note, NoteModel> = MapperFactory.getNoteMapper();
+  private getNoteInteractor: Usecase<GetNoteRequest, GetNoteResponse> = InteractorFactory.getGetNoteInteractor();
 
   constructor(view: NoteView) {
     this.view = view;
@@ -27,6 +27,10 @@ export class NotePresenterImpl implements NotePresenter {
     const noteObservable: Observable<NoteModel> = response.getNote()
       .pipe(
         map((note: Note) => {
+          if (!note) {
+            return null;
+          }
+
           return this.mapper.mapEntityToModel(note);
         })
       );

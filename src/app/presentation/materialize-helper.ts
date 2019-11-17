@@ -12,6 +12,10 @@ export class MaterializeHelper {
     const fab = document.querySelectorAll('.fixed-action-btn');
     M.FloatingActionButton.init(fab, {});
   }
+  static initMaterialBoxed() {
+    const images = document.querySelectorAll('.materialboxed');
+    M.Materialbox.init(images, {});
+  }
   static initPrefilledInputs() {
     M.updateTextFields();
   }

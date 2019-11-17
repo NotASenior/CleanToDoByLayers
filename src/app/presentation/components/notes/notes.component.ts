@@ -5,6 +5,7 @@ import {NotesPresenter} from '../../presenter/notes-presenter';
 import {Observable} from 'rxjs';
 import {NotesPresenterImpl} from './notes.presenter';
 import {MaterializeHelper} from '../../materialize-helper';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notes',
@@ -16,7 +17,7 @@ export class NotesComponent implements NotesView, OnInit {
   public noteToDelete: NoteModel;
   private presenter: NotesPresenter;
 
-  constructor() {
+  constructor(private domSanitizer: DomSanitizer) {
     this.notes = new Array<NoteModel>();
     this.presenter = new NotesPresenterImpl(this);
   }
@@ -25,6 +26,10 @@ export class NotesComponent implements NotesView, OnInit {
     this.presenter.getNotes(new NoteModel());
     MaterializeHelper.initFab();
     MaterializeHelper.initFeatureDiscovery();
+
+    setTimeout(() => {
+      MaterializeHelper.initMaterialBoxed();
+    }, 100);
   }
 
   setNotes(notesObservable: Observable<NoteModel[]>) {

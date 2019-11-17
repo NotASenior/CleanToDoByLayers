@@ -2,6 +2,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.white-text {
-  color: white !important;
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0 !important;
+}
+
+.padding-bottom-16 {
+  padding-bottom: 16px !important;
 }

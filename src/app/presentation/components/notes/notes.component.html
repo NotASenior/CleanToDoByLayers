@@ -15,6 +15,17 @@
           <br>
           <br>
           <p>{{note.getContent()}}</p>
+          <br>
+          <div class="row no-padding-bottom no-margin-bottom">
+            <div *ngFor="let image of note.images"
+              class="col s3 padding-bottom-16">
+              <img  alt=""
+                    width="100%"
+                    data-caption=""
+                    class="materialboxed"
+                    [src]="domSanitizer.bypassSecurityTrustUrl(image.content)">
+            </div>
+          </div>
         </div>
         <div class="card-action">
           <a class="indigo-text" href="javascript:" [routerLink]="'/note/' + note.getId()">
