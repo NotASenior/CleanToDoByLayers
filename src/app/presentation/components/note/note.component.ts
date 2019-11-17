@@ -19,7 +19,7 @@ export class NoteComponent implements NoteView, OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private domSanitizer: DomSanitizer) {
+              public domSanitizer: DomSanitizer) {
     this.note = new NoteModel();
     this.presenter = new NotePresenterImpl(this);
   }

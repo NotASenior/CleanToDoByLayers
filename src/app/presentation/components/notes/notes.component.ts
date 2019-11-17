@@ -17,7 +17,7 @@ export class NotesComponent implements NotesView, OnInit {
   public noteToDelete: NoteModel;
   private presenter: NotesPresenter;
 
-  constructor(private domSanitizer: DomSanitizer) {
+  constructor(public domSanitizer: DomSanitizer) {
     this.notes = new Array<NoteModel>();
     this.presenter = new NotesPresenterImpl(this);
   }

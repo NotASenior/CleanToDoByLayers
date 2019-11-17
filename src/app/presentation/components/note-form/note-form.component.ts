@@ -23,7 +23,7 @@ export class NoteFormComponent implements NoteFormView, OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private domSanitizer: DomSanitizer) {
+              public domSanitizer: DomSanitizer) {
     this.presenter = new NoteFormPresenterImpl(this);
   }
 
