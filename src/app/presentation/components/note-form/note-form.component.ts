@@ -58,6 +58,13 @@ export class NoteFormComponent implements NoteFormView, OnInit {
     this.presenter.save(this.note);
   }
 
+  removeImage(image: ImageModel) {
+    this.note.removeImage(image);
+    MaterializeHelper.showToast('Imágen eliminada', () => {
+      this.note.addImage(image);
+    });
+  }
+
   onImageSelect(event: any) {
     const reader = new FileReader();
     const readerBase64 = new FileReader();

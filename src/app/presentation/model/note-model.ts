@@ -61,12 +61,20 @@ export class NoteModel {
     return this;
   }
 
-  public addImage(image: ImageModel) {
-    image.setId(this.images.length);
-    image.setCreatedAt(new Date());
-    image.setUpdatedAt(new Date());
+  public addImage(imageToAdd: ImageModel) {
+    imageToAdd.setCreatedAt(new Date());
+    imageToAdd.setUpdatedAt(new Date());
 
-    this.images.push(image);
+    let maxId = this.images.length + 1;
+    this.images.forEach(image => {
+      if (image.getId() > maxId) {
+        maxId = image.getId();
+      }
+    });
+
+    imageToAdd.setId(maxId + 1);
+
+    this.images.push(imageToAdd);
   }
 
   public getImage(id: number) {

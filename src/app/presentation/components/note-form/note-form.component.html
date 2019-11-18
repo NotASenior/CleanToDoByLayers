@@ -1,5 +1,5 @@
 <app-navbar
-  [showGoBackButton]="false"></app-navbar>
+  [showGoBackButton]="true"></app-navbar>
 
 <div class="container">
   <div class="row">
@@ -32,6 +32,9 @@
                 data-caption=""
                 class="materialboxed"
                 [src]="domSanitizer.bypassSecurityTrustUrl(image.content)">
+          <a class="margin-top-minus-25 red-text" href="javascript:" (click)="removeImage(image)">
+            <i class="material-icons">delete</i>
+          </a>
         </div>
       </div>
     </form>

@@ -1,8 +1,38 @@
 declare var M;
+declare var document;
 
 export class MaterializeHelper {
-  static showToast(message: string) {
+  static showToast(message: string, callback = null) {
+    const id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+
+    if (callback != null) {
+      message = '<span>' + message + '</span><button id="' + id + '" class="btn-flat toast-action">DESHACER</button>';
+    }
+
     M.toast({html: message});
+
+    if (callback != null) {
+      MaterializeHelper.setToastUndoListenerById(id, callback);
+    }
+  }
+  static setToastUndoListenerById(id: string, callback) {
+    const undoElement = document.getElementById(id);
+    if (undoElement != null) {
+      undoElement.addEventListener('click', () => {
+        callback();
+        MaterializeHelper.dismissToasts();
+        undoElement.removeEventListener('click');
+      }, false);
+    }
+  }
+  static dismissToasts() {
+    const toastElement = document.querySelector('.toast');
+    if (toastElement != null) {
+      const toastInstance = M.Toast.getInstance(toastElement);
+      if (toastInstance != null) {
+        toastInstance.dismiss();
+      }
+    }
   }
   static initModal() {
     const modals = document.querySelectorAll('.modal');

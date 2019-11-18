@@ -43,10 +43,17 @@ export class NoteMockRepository implements NoteRepository {
   }
 
   create(toCreate: Note): Observable<any> {
-    toCreate.setId(this.notes.length + 1);
     toCreate.setActive(true);
     toCreate.setCreatedAt(new Date());
     toCreate.setUpdatedAt(new Date());
+
+    let maxId = this.notes.length + 1;
+    this.notes.forEach(note => {
+      if (note.getId() > maxId) {
+        maxId = note.getId();
+      }
+    });
+    toCreate.setId(maxId + 1);
 
     this.notes.push(toCreate);
     return of<boolean>(true);
