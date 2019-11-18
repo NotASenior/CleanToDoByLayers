@@ -30,6 +30,7 @@ export class NoteFormComponent implements NoteFormView, OnInit {
   ngOnInit() {
     MaterializeHelper.initPrefilledInputs();
     setTimeout(() => {
+      MaterializeHelper.initMaterialBoxed();
       MaterializeHelper.initPrefilledInputs();
     }, 100);
     this.setNoteOrDefault();
@@ -66,29 +67,30 @@ export class NoteFormComponent implements NoteFormView, OnInit {
   }
 
   onImageSelect(event: any) {
-    const reader = new FileReader();
-    const readerBase64 = new FileReader();
-    const selectedFile = event.target.files[0];
+    for (const selectedFile of event.target.files) {
+      const reader = new FileReader();
+      const readerBase64 = new FileReader();
 
-    reader.onloadend = () => {
-      const realMimeType: string = this.getRealMimeType(reader);
-      if (realMimeType !== 'unknown') {
-        readerBase64.readAsDataURL(selectedFile);
-      } else {
-        alert('Please upload a valid image file');
-      }
-    };
+      reader.onloadend = () => {
+        const realMimeType: string = this.getRealMimeType(reader);
+        if (realMimeType !== 'unknown') {
+          readerBase64.readAsDataURL(selectedFile);
+        } else {
+          alert('Please upload a valid image file');
+        }
+      };
 
-    reader.readAsArrayBuffer(selectedFile);
+      reader.readAsArrayBuffer(selectedFile);
 
-    readerBase64.onloadend = () => {
-      const base64 = readerBase64.result.toString();
-      this.note.addImage(new ImageModel()
-        .setContent(base64));
-      setTimeout(() => {
-        MaterializeHelper.initMaterialBoxed();
-      }, 100);
-    };
+      readerBase64.onloadend = () => {
+        const base64 = readerBase64.result.toString();
+        this.note.addImage(new ImageModel()
+          .setContent(base64));
+        setTimeout(() => {
+          MaterializeHelper.initMaterialBoxed();
+        }, 100);
+      };
+    }
   }
 
   onSaveResponse(response: Observable<any>) {
