@@ -6,7 +6,7 @@ export class MaterializeHelper {
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
 
     if (callback != null) {
-      message = '<span>' + message + '</span><button id="' + id + '" class="btn-flat toast-action">DESHACER</button>';
+      message = '<span>' + message + '</span><button id="' + id + '" class="pink-text text-accent-2 btn-flat toast-action">DESHACER</button>';
     }
 
     M.toast({html: message});
