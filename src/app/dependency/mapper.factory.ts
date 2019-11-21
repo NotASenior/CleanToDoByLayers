@@ -5,10 +5,13 @@ import {ImageModel} from '../presentation/model/image-model';
 import {Mapper} from '../presentation/mapper/mapper';
 import {NoteMapper} from '../presentation/mapper/note-mapper';
 import {ImageMapper} from '../presentation/mapper/image-mapper';
+import {RepositoryMapper} from '../data/repository/mapper/repository-mapper';
+import {LocalStorageMapper} from '../data/repository/mapper/local-storage-mapper';
 
 export class MapperFactory {
   private static noteMapper: Mapper<Note, NoteModel>;
   private static imageMapper: Mapper<Image, ImageModel>;
+  private static localStorageMapper: RepositoryMapper<any, Note>;
 
   public static getNoteMapper(): Mapper<Note, NoteModel> {
     if (!this.noteMapper) {
@@ -26,5 +29,13 @@ export class MapperFactory {
     }
 
     return this.imageMapper;
+  }
+
+  public static getLocalStorageMapper(): RepositoryMapper<any, Note> {
+    if (!this.localStorageMapper) {
+      this.localStorageMapper = new LocalStorageMapper();
+    }
+
+    return this.localStorageMapper;
   }
 }

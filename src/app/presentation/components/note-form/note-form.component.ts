@@ -41,7 +41,7 @@ export class NoteFormComponent implements NoteFormView, OnInit {
     if (id === 0) {
       this.note = new NoteModel()
         .setId(0)
-        .setTitle('Nota nueva')
+        .setTitle('')
         .setContent('');
     } else {
       this.presenter.getNote(id);
