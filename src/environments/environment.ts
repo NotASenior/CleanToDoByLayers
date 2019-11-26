@@ -3,13 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 import {NoteValidator} from '../app/presentation/validator/note-validator';
-import {LocalStorageRepository} from '../app/data/repository/local-storage/local-storage-repository.service';
+import {RepositoryType} from '../app/data/repository/repository-type.enum';
 
 export const environment = {
   production: false,
   name: 'Dev',
   noteValidator: new NoteValidator(),
-  noteRepository: new LocalStorageRepository(),
+  repositoryType: RepositoryType.localStorage
 };
 
 /*

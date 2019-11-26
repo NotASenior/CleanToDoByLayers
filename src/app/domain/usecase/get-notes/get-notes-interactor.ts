@@ -6,9 +6,10 @@ import {Note} from '../../entity/note';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
+import {NoteRepositoryFactory} from '../../../dependency/note-repository.factory';
 
 export class GetNotesInteractor implements Usecase<GetNotesRequest, GetNotesResponse> {
-  private noteRepository: NoteRepository = environment.noteRepository;
+  private noteRepository: NoteRepository = NoteRepositoryFactory.get(environment.repositoryType);
 
   execute(request: GetNotesRequest): GetNotesResponse {
     const filter: Note = request.getFilter();
